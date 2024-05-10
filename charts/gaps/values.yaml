@@ -33,6 +33,8 @@ app-template:
     config:
       enabled: true
       existingClaim: gaps-config
+      globalMounts:
+        - path: /usr/data
 
     data:
       enabled: true
