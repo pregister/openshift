@@ -2,6 +2,7 @@ apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
   name: nas
+  namespace: hajimari
 spec:
   name: NAS
   group: Infrastructure
@@ -14,6 +15,7 @@ apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
   name: homeassistant
+  namespace: hajimari
 spec:
   name: HomeAssistant
   group: Infrastructure
