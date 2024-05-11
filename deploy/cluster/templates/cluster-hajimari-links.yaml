@@ -9,3 +9,15 @@ spec:
   url: https://nas.{{ .Values.cluster.top_level_domain }}
   info: Storage
   targetBlank: true
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: homeassistant
+spec:
+  name: HomeAssistant
+  group: Infrastructure
+  icon: home-assistant
+  url: https://homeassistant.{{ .Values.cluster.top_level_domain }}
+  info: Home automation
+  targetBlank: true
