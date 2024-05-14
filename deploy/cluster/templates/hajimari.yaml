@@ -36,10 +36,6 @@ spec:
           value: "https://old.reddit.com/"
         - name: hajimari.globalBookmarks[1].group
           value: "Media"
-        - name: hajimari.globalBookmarks[1].bookmarks[0].name
-          value: "Netflix"
-        - name: hajimari.globalBookmarks[1].bookmarks[0].url
-          value: "https://netflix.com/"
         - name: hajimari.globalBookmarks[1].bookmarks[1].name
           value: "Amazon Video"
         - name: hajimari.globalBookmarks[1].bookmarks[1].url
@@ -47,11 +43,7 @@ spec:
         - name: hajimari.globalBookmarks[1].bookmarks[2].name
           value: "Youtube"
         - name: hajimari.globalBookmarks[1].bookmarks[2].url
-          value: "https://youtube.com/feed/subscriptions"
-        - name: hajimari.globalBookmarks[1].bookmarks[3].name
-          value: "Spotify"
-        - name: hajimari.globalBookmarks[1].bookmarks[3].url
-          value: "https://browse.spotify.com/"
+          value: "https://youtube.com"
         - name: hajimari.globalBookmarks[2].group
           value: "3d Printing"
         - name: hajimari.globalBookmarks[2].bookmarks[0].name
