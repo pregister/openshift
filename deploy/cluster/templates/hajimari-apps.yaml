@@ -57,3 +57,27 @@ spec:
   icon: simple-icons:cisco
   url: http://cisco-switch.{{ .Values.cluster.top_level_domain }}
   info: Switch
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: plex
+  namespace: hajimari
+spec:
+  name: Plex
+  group: Media
+  icon: mdi:plex
+  url: http://media-server.{{ .Values.cluster.top_level_domain }}:32400/web
+  info: Media
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: emby
+  namespace: hajimari
+spec:
+  name: Emby
+  group: Media
+  icon: mdi:emby
+  url: http://media-server.{{ .Values.cluster.top_level_domain }}:8096/web
+  info: Media
