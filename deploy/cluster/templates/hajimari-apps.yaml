@@ -56,4 +56,4 @@ spec:
   group: Infrastructure
   icon: simple-icons:cisco
   url: http://cisco-switch.{{ .Values.cluster.top_level_domain }}
-  info: Manage switch
+  info: Switch
