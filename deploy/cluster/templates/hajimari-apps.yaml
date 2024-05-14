@@ -52,8 +52,8 @@ metadata:
   name: switch
   namespace: hajimari
 spec:
-  name: Main switch
+  name: Switch
   group: Infrastructure
-  icon: material-symbols:switch
+  icon: simple-icons:cisco
   url: http://cisco-switch.{{ .Values.cluster.top_level_domain }}
   info: Manage switch
