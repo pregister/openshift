@@ -25,25 +25,13 @@ spec:
 apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
-  name: valetudo
-  namespace: hajimari
-spec:
-  name: Vacuum
-  group: Home Automation
-  icon: robot-vacuum
-  url: http://valetudo.{{ .Values.cluster.top_level_domain }}
-  info: Home automation
----
-apiVersion: hajimari.io/v1alpha1
-kind: Application
-metadata:
   name: unifi
   namespace: hajimari
 spec:
   name: UniFi
   group: Infrastructure
   icon: arcticons:unifi-network
-  url: http://unifi.{{ .Values.cluster.top_level_domain }}:8443
+  url: https://unifi.{{ .Values.cluster.top_level_domain }}:8443
   info: Manage WIFI 
 ---
 apiVersion: hajimari.io/v1alpha1
@@ -67,17 +55,5 @@ spec:
   name: Main switch
   group: Infrastructure
   icon: material-symbols:switch
-  url: http://switch.{{ .Values.cluster.top_level_domain }}
-  info: Manage switch
----
-apiVersion: hajimari.io/v1alpha1
-kind: Application
-metadata:
-  name: poe-switch
-  namespace: hajimari
-spec:
-  name: PoE switch
-  group: Infrastructure
-  icon: material-symbols:switch
-  url: http://poe-switch.{{ .Values.cluster.top_level_domain }}
+  url: http://cisco-switch.{{ .Values.cluster.top_level_domain }}
   info: Manage switch
