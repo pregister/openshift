@@ -93,15 +93,3 @@ spec:
   icon: mdi:emby
   url: http://media-server.{{ .Values.cluster.top_level_domain }}:8096/web
   info: Media
----
-apiVersion: hajimari.io/v1alpha1
-kind: Application
-metadata:
-  name: openshift
-  namespace: hajimari
-spec:
-  name: Openshift
-  group: Infrastructure
-  icon: simple-icons:redhatopenshift
-  url: http://console-openshift-console.{{ .Values.cluster.top_level_domain }}/dashboards
-  info: Openshift
