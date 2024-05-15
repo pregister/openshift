@@ -85,10 +85,10 @@ spec:
 apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
-  name: Openshift
+  name: openshift
   namespace: hajimari
 spec:
-  name: openshift
+  name: Openshift
   group: Infrastructure
   icon: simple-icons:redhatopenshift
   url: http://console-openshift-console.{{ .Values.cluster.top_level_domain }}/dashboards
