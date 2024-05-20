@@ -93,3 +93,15 @@ spec:
   icon: mdi:emby
   url: http://media-server.{{ .Values.cluster.top_level_domain }}:8096/web
   info: Media
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: teslamate
+  namespace: hajimari
+spec:
+  name: Teslamate
+  group: Infrastructure
+  icon: simple-icons:tesla
+  url: http://teslamate.{{ .Values.cluster.top_level_domain }}
+  info: Manage Tesla  
