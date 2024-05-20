@@ -103,5 +103,5 @@ spec:
   name: Teslamate
   group: Infrastructure
   icon: simple-icons:tesla
-  url: http://teslamate.{{ .Values.cluster.top_level_domain }}
+  url: http://teslamate.apps.openshift.{{ .Values.cluster.top_level_domain }}
   info: Manage Tesla  
