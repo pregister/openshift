@@ -63,6 +63,7 @@ spec:
         - name: app-template.controllers.main.initContainers.config-fix.securityContext.runAsNonRoot
           value: 'false'
 
+        # renovate custom-docker versioning=loose
         - name: app-template.controllers.main.containers.main.image.repository
           value: ghcr.io/onedr0p/sabnzbd
         - name: app-template.controllers.main.containers.main.image.tag
