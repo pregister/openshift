@@ -1,53 +1,43 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    "docker:enableMajor",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":automergeDigest",
-    ":automergeBranch",
-    "github>ullbergm/openshift//.github/renovate/allowedVersions.json5",
-    "github>ullbergm/openshift//.github/renovate/autoMerge.json5",
-    "github>ullbergm/openshift//.github/renovate/commitMessage.json5",
-    "github>ullbergm/openshift//.github/renovate/groups.json5",
-    "github>ullbergm/openshift//.github/renovate/labels.json5",
-    "github>ullbergm/openshift//.github/renovate/semanticCommits.json5",
-    "helpers:pinGitHubActionDigests"
-  ],
-  "dependencyDashboardTitle": "Renovate Dashboard",
-  "suppressNotifications": ["prIgnoreNotification"],
-  "ignorePaths": ["**/archive/**"],
-  "timezone": "America/New_York",
-  "helm-values": {
-    "fileMatch": ["(^|/)(charts|deploy)/.+\\.ya?ml(\\.j2)?$"]
-  },
-  "kubernetes": {
-    "fileMatch": [
-      "(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$",
-      "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
-      "(^|/)charts/.+\\.ya?ml(\\.j2)?$",
-      "(^|/)deploy/.+\\.ya?ml(\\.j2)?$"
-    ]
-  },
-  "regexManagers": [
-    {
-      "description": "Process raw GitHub URLs",
-      "fileMatch": ["kubernetes/.+\\.ya?ml$"],
-      "matchStrings": [
-        "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*"
-      ],
-      "datasourceTemplate": "github-releases",
-      "versioningTemplate": "semver"
-    }
-  ],
-  "packageRules": [
-    {
-      "description": "Loose versioning for non-semver packages",
-      "matchDatasources": ["docker"],
-      "versioning": "loose",
-      "matchPackagePatterns": ["changedetection", "plex", "qbittorrent"]
-    }
-  ]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:base",
+        "docker:enableMajor",
+        ":disableRateLimiting",
+        ":dependencyDashboard",
+        ":semanticCommits",
+        ":automergeDigest",
+        ":automergeBranch",
+        "github>ullbergm/openshift//.github/renovate/allowedVersions.json5",
+        "github>ullbergm/openshift//.github/renovate/autoMerge.json5",
+        "github>ullbergm/openshift//.github/renovate/commitMessage.json5",
+        "github>ullbergm/openshift//.github/renovate/groups.json5",
+        "github>ullbergm/openshift//.github/renovate/labels.json5",
+        "github>ullbergm/openshift//.github/renovate/semanticCommits.json5",
+        "helpers:pinGitHubActionDigests"
+    ],
+    "dependencyDashboardTitle": "Renovate Dashboard",
+    "suppressNotifications": [
+        "prIgnoreNotification"
+    ],
+    "ignorePaths": [
+        "**/archive/**"
+    ],
+    "timezone": "America/New_York",
+    "customManagers": [
+        {
+            "customType": "regex",
+            "datasourceTemplate": "docker",
+            "description": "Update container versions in yaml",
+            "fileMatch": [
+                "(^|/)[^\\.]*\\.ya?ml$"
+            ],
+            "matchStrings": [
+                "#\\s?renovate custom-docker\\s?(?: versioning=(?<versioning>[a-z-]+?))?\\s*- name:.*\\s*value:\\s?(?<depName>[.\\w\\d-/]+)\\s*- name:.*\\s*value:\\s?(?<currentValue>[.\\w\\d-]+)"
+            ]
+        }
+    ],
+    "enabledManagers":
+    ["github-actions",
+    "custom.regex"]
 }
