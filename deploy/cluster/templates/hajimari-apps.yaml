@@ -49,6 +49,42 @@ spec:
 apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
+  name:zwavemqtt
+  namespace: hajimari
+spec:
+  name: Zwave Mqtt
+  group: Home Automation
+  icon: mdi:zwave
+  url: http://nas.{{ .Values.cluster.top_level_domain }}:8091
+  info: Manage Zwave Devices
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name:zigbeemqtt
+  namespace: hajimari
+spec:
+  name: Zigbee Mqtt
+  group: Home Automation
+  icon: mdi:zigbee
+  url: http://nas.{{ .Values.cluster.top_level_domain }}:8092
+  info: Manage Zigbee Devices
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name:nodered
+  namespace: hajimari
+spec:
+  name: Node-Red
+  group: Home Automation
+  icon: simple-icons:nodered
+  url: http://nas.{{ .Values.cluster.top_level_domain }}:1880
+  info: Manage Automations
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
   name: unifi
   namespace: hajimari
 spec:
