@@ -49,7 +49,7 @@ spec:
 apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
-  name:zwavemqtt
+  name: zwavemqtt
   namespace: hajimari
 spec:
   name: Zwave Mqtt
@@ -61,7 +61,7 @@ spec:
 apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
-  name:zigbeemqtt
+  name: zigbeemqtt
   namespace: hajimari
 spec:
   name: Zigbee Mqtt
@@ -73,7 +73,7 @@ spec:
 apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
-  name:nodered
+  name: nodered
   namespace: hajimari
 spec:
   name: Node-Red
