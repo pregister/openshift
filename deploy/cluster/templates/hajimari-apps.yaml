@@ -37,6 +37,18 @@ spec:
 apiVersion: hajimari.io/v1alpha1
 kind: Application
 metadata:
+  name: esphome
+  namespace: hajimari
+spec:
+  name: ESPHome
+  group: Home Automation
+  icon: simple-icons:esphome
+  url: http://nas.{{ .Values.cluster.top_level_domain }}:6052
+  info: ESP Home
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
   name: unifi
   namespace: hajimari
 spec:
