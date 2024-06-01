@@ -1,0 +1,144 @@
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: nas
+  namespace: hajimari
+spec:
+  name: Synology
+  group: Infrastructure
+  icon: nas
+  url: http://nas.{{ .Values.cluster.top_level_domain }}
+  info: Storage
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: homeassistant
+  namespace: hajimari
+spec:
+  name: HomeAssistant
+  group: Home Automation
+  icon: home-assistant
+  url: http://homeassistant.{{ .Values.cluster.top_level_domain }}:8123
+  info: Home automation
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: esphome
+  namespace: hajimari
+spec:
+  name: ESPHome
+  group: Home Automation
+  icon: simple-icons:esphome
+  url: http://nas.{{ .Values.cluster.top_level_domain }}:6052
+  info: ESP Home
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: zwavemqtt
+  namespace: hajimari
+spec:
+  name: Zwave Mqtt
+  group: Home Automation
+  icon: mdi:zwave
+  url: http://nas.{{ .Values.cluster.top_level_domain }}:8091
+  info: Manage Zwave Devices
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: zigbeemqtt
+  namespace: hajimari
+spec:
+  name: Zigbee Mqtt
+  group: Home Automation
+  icon: mdi:zigbee
+  url: http://nas.{{ .Values.cluster.top_level_domain }}:8092
+  info: Manage Zigbee Devices
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: nodered
+  namespace: hajimari
+spec:
+  name: Node-Red
+  group: Home Automation
+  icon: simple-icons:nodered
+  url: http://nas.{{ .Values.cluster.top_level_domain }}:1880
+  info: Manage Automations
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: unifi
+  namespace: hajimari
+spec:
+  name: UniFi
+  group: Infrastructure
+  icon: arcticons:unifi-network
+  url: https://unifi.{{ .Values.cluster.top_level_domain }}:8443
+  info: Manage WIFI 
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: firewall
+  namespace: hajimari
+spec:
+  name: Router
+  group: Infrastructure
+  icon: router-network
+  url: http://firewall.{{ .Values.cluster.top_level_domain }}
+  info: Manage firewall
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: switch
+  namespace: hajimari
+spec:
+  name: Switch
+  group: Infrastructure
+  icon: simple-icons:cisco
+  url: http://cisco-switch.{{ .Values.cluster.top_level_domain }}
+  info: Switch
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: plex
+  namespace: hajimari
+spec:
+  name: Plex
+  group: Media
+  icon: mdi:plex
+  url: http://media-server.{{ .Values.cluster.top_level_domain }}:32400/web
+  info: Media
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: emby
+  namespace: hajimari
+spec:
+  name: Emby
+  group: Media
+  icon: mdi:emby
+  url: http://media-server.{{ .Values.cluster.top_level_domain }}:8096/web
+  info: Media
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: teslamate
+  namespace: hajimari
+spec:
+  name: Teslamate
+  group: Infrastructure
+  icon: simple-icons:tesla
+  url: http://teslamate.apps.openshift.{{ .Values.cluster.top_level_domain }}
+  info: Manage Tesla  
