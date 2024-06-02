@@ -29,7 +29,7 @@ app-template:
       containers:
         main:
           image:
-            # renovate: docker-image versioning=loose
+            # renovate: docker-image
             repository: docker.io/nodered/node-red
             tag: 3.1.9
             pullPolicy: Always
@@ -37,7 +37,7 @@ app-template:
             TZ: TIMEZONE
 
   serviceAccount:
-    name: nodered-sa
+    name: node-red-sa
 
   service:
     main:
@@ -48,23 +48,23 @@ app-template:
 
   defaultPodOptions:
     labels:
-      app: nodered
+      app: node-red
       version: 1.0.0
     securityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
       fsGroupChangePolicy: "OnRootMismatch"
 
   persistence:
     config:
       enabled: true
-      existingClaim: nodered-config
+      existingClaim: node-red-config
       globalMounts:
         - path: /data
     config-file:
       type: configMap
-      name: nodered-config
+      name: node-red-config
       globalMounts:
         - path: /data/settings.js
           subPath: settings.js
