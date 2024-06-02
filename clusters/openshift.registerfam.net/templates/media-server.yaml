@@ -42,7 +42,7 @@ spec:
           value: {{ .Values.media.nfs.path }}
 
         - name: applications.plex
-          value: false
+          value: "false"
 
   syncPolicy:
     automated:
