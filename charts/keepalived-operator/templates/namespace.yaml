@@ -1,6 +1,6 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: openshift-nfd
+  name: keepalived-operator
   labels:
     openshift.io/cluster-monitoring: 'true'
