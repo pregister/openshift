@@ -1,3 +1,12 @@
+storage:
+  data:
+    storageClassName: synology-iscsi
+
+network:
+  mqtt:
+    externalIP: 192.168.0.100
+    keepalivegroup: lan
+
 app-template:
   controllers:
     main:
@@ -16,6 +25,10 @@ app-template:
             repository: public.ecr.aws/docker/library/eclipse-mosquitto
             tag: 2.0.18
             pullPolicy: Always
+          args:
+          - sh
+          - -c
+          - exec mosquitto -c "/config/mosquitto.conf"
           probes:
             liveness:
               enabled: true
@@ -26,17 +39,24 @@ app-template:
               spec:
                 failureThreshold: 30
                 periodSeconds: 5
-
   service:
     main:
       controller: main
-      ports:
-        mqtt:
-          enabled: true
-          port: 1883
+      enabled: false
 
   serviceAccount:
     name: mosquitto-sa
+
+  persistence:
+    config:
+      name: mosquitto-config
+      type: configMap
+
+    data:
+      enabled: true
+      existingClaim: mosquitto-data-volume
+      globalMounts:
+        - path: /data
 
   defaultPodOptions:
     securityContext:

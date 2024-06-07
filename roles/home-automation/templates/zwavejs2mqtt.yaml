@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: changedetection
+  name: zwavejs2mqtt
   namespace: openshift-gitops
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: changedetection
+    namespace: zwavejs2mqtt
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    path: charts/media-application
+    path: charts/zwavejs2mqtt
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     helm:
@@ -33,41 +33,25 @@ spec:
           value: {{ .Values.media.nfs.path }}
 
         - name: application.name
-          value: changedetection
+          value: Z-Wave JS to MQTT
         - name: application.group
-          value: Utilities
+          value: Home Automation
         - name: application.icon
-          value: magnify
+          value: mdi:zwave
         - name: application.image
-          value: 'https://www.bazarr.media/assets/img/logo.png'
+          value: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Home_Assistant_Logo.svg'
         - name: application.description
-          value: "Web Site Change Detection"
+          value: "Home Automation"
         - name: app-template.service.main.ports.http.port
-          value: '5000'
-
-        # renovate custom-docker versioning=loose
-        - name: app-template.controllers.main.containers.main.image.repository
-          value: ghcr.io/dgtlmoon/changedetection.io
-        - name: app-template.controllers.main.containers.main.image.tag
-          value: 0.45.23
-        - name: app-template.controllers.main.containers.main.image.pullPolicy
-          value: IfNotPresent
+          value: '8091'
         - name: app-template.controllers.main.containers.main.env.TZ
           value: America/New_York
 
         - name: app-template.serviceAccount.name
-          value: cyberchchangedetectionef-sa
-        - name: app-template.persistence.data.existingClaim
-          value: changedetection-data-volume
+          value: zwavejs2mqtt-sa
         - name: app-template.persistence.config.existingClaim
-          value: changedetection-config
-        - name: app-template.persistence.config.globalMounts[0].path
-          value: /datastore
+          value: zwavejs2mqtt-config
 
-        - name: app-template.defaultPodOptions.labels.app
-          value: changedetection
-        - name: app-template.defaultPodOptions.labels.version
-          value: 0.45.22
 
   syncPolicy:
     automated:

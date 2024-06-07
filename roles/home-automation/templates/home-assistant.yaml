@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: changedetection
+  name: home-assistant
   namespace: openshift-gitops
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: changedetection
+    namespace: home-assistant
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
@@ -33,39 +33,37 @@ spec:
           value: {{ .Values.media.nfs.path }}
 
         - name: application.name
-          value: changedetection
+          value: Home Assistant
         - name: application.group
-          value: Utilities
+          value: Home Automation
         - name: application.icon
-          value: magnify
+          value: mdi:home-assistant
         - name: application.image
-          value: 'https://www.bazarr.media/assets/img/logo.png'
+          value: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Home_Assistant_Logo.svg'
         - name: application.description
-          value: "Web Site Change Detection"
+          value: "Home Automation"
         - name: app-template.service.main.ports.http.port
-          value: '5000'
+          value: '8123'
 
-        # renovate custom-docker versioning=loose
+        # renovate custom-docker
         - name: app-template.controllers.main.containers.main.image.repository
-          value: ghcr.io/dgtlmoon/changedetection.io
+          value: ghcr.io/home-assistant/home-assistant
         - name: app-template.controllers.main.containers.main.image.tag
-          value: 0.45.23
+          value: 2024.6.0
         - name: app-template.controllers.main.containers.main.image.pullPolicy
           value: IfNotPresent
         - name: app-template.controllers.main.containers.main.env.TZ
           value: America/New_York
 
         - name: app-template.serviceAccount.name
-          value: cyberchchangedetectionef-sa
+          value: homeassistant-sa
         - name: app-template.persistence.data.existingClaim
-          value: changedetection-data-volume
+          value: home-assistant-data-volume
         - name: app-template.persistence.config.existingClaim
-          value: changedetection-config
-        - name: app-template.persistence.config.globalMounts[0].path
-          value: /datastore
+          value: home-assistant-config
 
         - name: app-template.defaultPodOptions.labels.app
-          value: changedetection
+          value: home-assistant
         - name: app-template.defaultPodOptions.labels.version
           value: 0.45.22
 

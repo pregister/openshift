@@ -62,15 +62,15 @@ app-template:
 
 hajimari:
     defaultEnable: true
-    theme: null
-    lightTheme: gazette
-    darkTheme: blackboard
+    lightTheme: paper
+    darkTheme: espresso
     showGreeting: false
     showAppGroups: true
     showAppInfo: true
     showAppUrls: false
     showBookmarkGroups: true
     showGlobalBookmarks: true
+    showSearch: false
     alwaysTargetBlank: false
     targetBlank: false
     name: "friend"
