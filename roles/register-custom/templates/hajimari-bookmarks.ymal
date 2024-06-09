@@ -27,30 +27,6 @@ spec:
 apiVersion: hajimari.io/v1alpha1
 kind: Bookmark
 metadata:
-  name: linkedin
-  namespace: hajimari
-spec:
-  name: LinkedIn
-  group: Business
-  icon: simple-icons:linkedin
-  url: https://linkedin.com/
-  info: Business Networking
----
-apiVersion: hajimari.io/v1alpha1
-kind: Bookmark
-metadata:
-  name: netflix
-  namespace: hajimari
-spec:
-  name: Netflix
-  group: Entertainment
-  icon: simple-icons:netflix
-  url: https://netflix.com/
-  info: Streaming
----
-apiVersion: hajimari.io/v1alpha1
-kind: Bookmark
-metadata:
   name: amazon-video
   namespace: hajimari
 spec:
@@ -69,20 +45,8 @@ spec:
   name: Youtube
   group: Entertainment
   icon: simple-icons:youtube
-  url: https://youtube.com/feed/subscriptions
+  url: https://youtube.com
   info: Streaming
----
-apiVersion: hajimari.io/v1alpha1
-kind: Bookmark
-metadata:
-  name: spotify
-  namespace: hajimari
-spec:
-  name: Spotify
-  group: Entertainment
-  icon: simple-icons:spotify
-  url: https://browse.spotify.com/
-  info: Music Streaming
 ---
 apiVersion: hajimari.io/v1alpha1
 kind: Bookmark
