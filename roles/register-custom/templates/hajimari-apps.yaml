@@ -69,6 +69,7 @@ spec:
   name: Node-Red
   group: Home Automation
   icon: simple-icons:nodered
+  iconColor: red
   url: http://nas.{{ .Values.cluster.top_level_domain }}:1880
   info: Manage Automations
 ---
