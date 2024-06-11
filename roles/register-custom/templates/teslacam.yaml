@@ -16,8 +16,8 @@ spec:
   capacity:
     storage: 1Mi
   nfs:
-    server: {{ .Values.storage.media.nfs.server }}
-    path: {{ .Values.storage.media.nfs.path }}
+    server: {{ .Values.media.nfs.server }}
+    path: {{ .Values.media.nfs.path }}
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
