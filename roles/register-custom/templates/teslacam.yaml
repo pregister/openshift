@@ -1,0 +1,134 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: teslacam
+  labels:
+    openshift.io/cluster-monitoring: 'true'
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: teslacam-data-volume
+  finalizers:
+    - kubernetes.io/pv-protection
+spec:
+  capacity:
+    storage: 1Mi
+  nfs:
+    server: {{ .Values.storage.media.nfs.server }}
+    path: {{ .Values.storage.media.nfs.path }}
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4.1
+    - nconnect=8
+    - hard
+    - noatime
+    - rsize=131072
+    - wsize=131072
+  volumeMode: Filesystem
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: teslacam-data-volume
+  namespace: teslacam
+  finalizers:
+    - kubernetes.io/pvc-protection
+  labels:
+    kasten/skip: 'true'
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
+  volumeName: data-volume
+  storageClassName: ''
+  volumeMode: Filesystem
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: teslacam
+  namespace: teslacam
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teslacam
+  template:
+    metadata:
+      labels:
+        app: teslacam
+    spec:
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: teslacam-data-volume
+      containers:
+        - name: model3
+          image: 'magicalyak/tesla_dashcam:latest'
+          args:
+            - /tmp/Import
+            - '--monitor'
+            - '--monitor_trigger'
+            - /tmp/Import/ARCHIVE_UPLOADED
+            - '--skip_existing'
+            - '--scale'
+            - '1'
+            - '--delete_source'
+            - '--output'
+            - /tmp/Videos
+          resources: {}
+          volumeMounts:
+            - name: media
+              mountPath: /tmp/Import
+              subPath: tesla/TeslaCam/Model3
+            - name: media
+              mountPath: /tmp/Videos
+              subPath: tesla/video/Model3
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+        - name: modely
+          image: 'magicalyak/tesla_dashcam:latest'
+          args:
+            - /tmp/Import
+            - '--monitor'
+            - '--monitor_trigger'
+            - /tmp/Import/ARCHIVE_UPLOADED
+            - '--skip_existing'
+            - '--scale'
+            - '1'
+            - '--delete_source'
+            - '--output'
+            - /tmp/Videos
+          resources: {}
+          volumeMounts:
+            - name: media
+              mountPath: /tmp/Import
+              subPath: tesla/TeslaCam/ModelY
+            - name: media
+              mountPath: /tmp/Videos
+              subPath: tesla/video/ModelY
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 10
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  serviceName: teslacam
+  podManagementPolicy: OrderedReady
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 0
+  revisionHistoryLimit: 10
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
