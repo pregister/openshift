@@ -45,7 +45,7 @@ spec:
   resources:
     requests:
       storage: 1Mi
-  volumeName: data-volume
+  volumeName: teslacam-data-volume
   storageClassName: ''
   volumeMode: Filesystem
 ---
