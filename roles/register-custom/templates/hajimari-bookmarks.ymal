@@ -83,3 +83,15 @@ spec:
   icon: simple-icons:thingiverse
   url: https://thingiverse.com/
   info: 3D Printing Community
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Bookmark
+metadata:
+  name: lithophane
+  namespace: hajimari
+spec:
+  name: Lithophane Makers
+  group: 3D Printing
+  icon: simple-icons:thingiverse
+  url: https://lithophanemaker.com/
+  info: Lithophane Makers Generator
