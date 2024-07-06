@@ -144,3 +144,15 @@ spec:
   icon: simple-icons:tesla
   url: http://teslamate.apps.openshift.{{ .Values.cluster.top_level_domain }}
   info: Manage Tesla  
+---
+apiVersion: hajimari.io/v1alpha1
+kind: Application
+metadata:
+  name: valetudo
+  namespace: hajimari
+spec:
+  name: Vacuum
+  group: Home Automation
+  icon: robot-vacuum
+  url: http://valetudo.{{ .Values.cluster.top_level_domain }}
+  info: Home automation  
