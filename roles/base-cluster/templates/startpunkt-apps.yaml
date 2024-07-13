@@ -1,8 +1,8 @@
-apiVersion: hajimari.io/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha1
 kind: Application
 metadata:
   name: openshift
-  namespace: hajimari
+  namespace: startpunkt
 spec:
   name: OpenShift
   group: Infrastructure
@@ -12,11 +12,11 @@ spec:
   info: OpenShift console
   location: 100
 ---
-apiVersion: hajimari.io/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha1
 kind: Application
 metadata:
   name: github
-  namespace: hajimari
+  namespace: startpunkt
 spec:
   name: GitHub Repo
   group: Infrastructure
@@ -24,11 +24,11 @@ spec:
   url: {{ .Values.spec.source.repoURL }}
   info: GitHub Repo
 ---
-apiVersion: hajimari.io/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha1
 kind: Application
 metadata:
   name: gitops
-  namespace: hajimari
+  namespace: startpunkt
 spec:
   name: GitOps
   group: Infrastructure
