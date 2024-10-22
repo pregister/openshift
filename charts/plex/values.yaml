@@ -13,7 +13,7 @@ app-template:
         main:
           image:
             # renovate: docker-image versioning=loose
-            repository: lscr.io/linuxserver/plex:
+            repository: lscr.io/linuxserver/plex
             tag: 1.41.0
             pullPolicy: IfNotPresent
           env:
