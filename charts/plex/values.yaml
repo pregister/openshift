@@ -13,8 +13,8 @@ app-template:
         main:
           image:
             # renovate: docker-image versioning=loose
-            repository: ghcr.io/onedr0p/plex
-            tag: 1.40.2.8395-c67dce28e
+            repository: lscr.io/linuxserver/plex:
+            tag: 1.41.0
             pullPolicy: IfNotPresent
           env:
             TZ: TIMEZONE
@@ -79,12 +79,7 @@ app-template:
       app: plex
       version: 1.0.0
     securityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
       fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 44
-        - 109
-        - 100
-        - 65535
