@@ -153,8 +153,8 @@ metadata:
 spec:
   name: HDHR
   group: Infrastructure
-  icon: simple-icons:tesla
-  url: hdhr.{{ .Values.cluster.top_level_domain }}
+  icon: tabler:antenna
+  url: http://hdhr.{{ .Values.cluster.top_level_domain }}
   info: Manage Over Air TV  
 ---  
 
