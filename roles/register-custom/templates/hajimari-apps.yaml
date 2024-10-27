@@ -143,4 +143,19 @@ spec:
   group: Home Automation
   icon: robot-vacuum
   url: http://valetudo.{{ .Values.cluster.top_level_domain }}
-  info: Home automation  
+  info: Home automation
+---
+apiVersion: startpunkt.ullberg.us/v1alpha1
+kind: Application
+metadata:
+  name: hdhr
+  namespace: hajimari
+spec:
+  name: HDHR
+  group: Infrastructure
+  icon: simple-icons:tesla
+  url: hdhr.{{ .Values.cluster.top_level_domain }}
+  info: Manage Over Air TV  
+---  
+
+
