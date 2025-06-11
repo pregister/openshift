@@ -56,7 +56,7 @@ spec:
         - name: app-template.controllers.main.containers.main.env.TZ
           value: America/New_York
 
-        - name: app-template.controllers.main.containers.main.serviceAccount.name
+        - name: app-template.controllers.main.serviceAccount.name
           value: bazarr-sa
         - name: app-template.persistence.data.existingClaim
           value: bazarr-data-volume
