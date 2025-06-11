@@ -39,13 +39,13 @@ app-template:
               spec:
                 failureThreshold: 30
                 periodSeconds: 5
+
+      serviceAccount:
+        name: mosquitto-sa
   service:
     main:
       controller: main
       enabled: false
-
-  serviceAccount:
-    name: mosquitto-sa
 
   persistence:
     config:
