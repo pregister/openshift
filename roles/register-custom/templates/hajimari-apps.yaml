@@ -118,6 +118,7 @@ spec:
   name: Emby
   group: Media
   icon: mdi:emby
+  iconColor: green
   url: http://media-server.{{ .Values.cluster.top_level_domain }}:8096/web
   info: Media
 ---
@@ -170,6 +171,7 @@ spec:
   url: https://www.backblaze.com/
   info: Manage Off Site Backups  
 ---
+
 
 
 
