@@ -1,5 +1,5 @@
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: nas
@@ -11,7 +11,7 @@ spec:
   url: http://nas.{{ .Values.cluster.top_level_domain }}
   info: Storage
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: homeassistant
@@ -24,7 +24,7 @@ spec:
   url: http://homeassistant.{{ .Values.cluster.top_level_domain }}:8123
   info: Home automation
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: esphome
@@ -36,7 +36,7 @@ spec:
   url: http://nas.{{ .Values.cluster.top_level_domain }}:6052
   info: ESP Home
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: zwavemqtt
@@ -48,7 +48,7 @@ spec:
   url: http://nas.{{ .Values.cluster.top_level_domain }}:8091
   info: Manage Zwave Devices
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: zigbeemqtt
@@ -60,7 +60,7 @@ spec:
   url: http://nas.{{ .Values.cluster.top_level_domain }}:8092
   info: Manage Zigbee Devices
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: nodered
@@ -73,7 +73,7 @@ spec:
   url: http://nas.{{ .Values.cluster.top_level_domain }}:1880
   info: Manage Automations
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: unifi
@@ -85,7 +85,7 @@ spec:
   url: https://unifi.{{ .Values.cluster.top_level_domain }}:8443
   info: Manage WIFI 
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: firewall
@@ -97,7 +97,7 @@ spec:
   url: http://firewall.{{ .Values.cluster.top_level_domain }}
   info: Manage firewall
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: switch
@@ -109,7 +109,7 @@ spec:
   url: http://cisco-switch.{{ .Values.cluster.top_level_domain }}
   info: Switch
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: emby
@@ -121,7 +121,7 @@ spec:
   url: http://media-server.{{ .Values.cluster.top_level_domain }}:8096/web
   info: Media
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: teslamate
@@ -133,7 +133,7 @@ spec:
   url: http://teslamate.apps.openshift.{{ .Values.cluster.top_level_domain }}
   info: Manage Tesla  
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: valetudo
@@ -145,7 +145,7 @@ spec:
   url: http://valetudo.{{ .Values.cluster.top_level_domain }}
   info: Home automation
 ---
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: hdhr
@@ -170,6 +170,7 @@ spec:
   url: https://www.backblaze.com/
   info: Manage Off Site Backups  
 ---
+
 
 
 
