@@ -160,7 +160,7 @@ spec:
 apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
-  name: Backblaze
+  name: backblaze
   namespace: hajimari
 spec:
   name: Backblaze
@@ -170,6 +170,7 @@ spec:
   url: https://www.backblaze.com/
   info: Manage Off Site Backups  
 ---
+
 
 
 
