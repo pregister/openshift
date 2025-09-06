@@ -157,7 +157,7 @@ spec:
   url: http://hdhr.{{ .Values.cluster.top_level_domain }}
   info: Manage Over Air TV  
 ---  
-apiVersion: startpunkt.ullberg.us/v1alpha1
+apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
   name: Backblaze
@@ -170,5 +170,6 @@ spec:
   url: https://www.backblaze.com/
   info: Manage Off Site Backups  
 ---
+
 
 
