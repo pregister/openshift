@@ -156,6 +156,7 @@ spec:
   name: HDHR
   group: Infrastructure
   icon: tabler:antenna
+  iconColor: green
   url: http://hdhr.{{ .Values.cluster.top_level_domain }}
   info: Manage Over Air TV  
 ---  
@@ -172,6 +173,7 @@ spec:
   url: https://www.backblaze.com/
   info: Manage Off Site Backups  
 ---
+
 
 
 
