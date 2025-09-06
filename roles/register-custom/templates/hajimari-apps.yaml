@@ -157,5 +157,18 @@ spec:
   url: http://hdhr.{{ .Values.cluster.top_level_domain }}
   info: Manage Over Air TV  
 ---  
+apiVersion: startpunkt.ullberg.us/v1alpha1
+kind: Application
+metadata:
+  name: Backblaze
+  namespace: hajimari
+spec:
+  name: Backblaze
+  group: Infrastructure
+  icon: simple-icons:backblaze
+  iconColor: red
+  url: https://www.backblaze.com/
+  info: Manage Off Site Backups  
+---
 
 
