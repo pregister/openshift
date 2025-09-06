@@ -131,6 +131,7 @@ spec:
   name: Teslamate
   group: Infrastructure
   icon: simple-icons:tesla
+  iconColor: red
   url: http://teslamate.apps.openshift.{{ .Values.cluster.top_level_domain }}
   info: Manage Tesla  
 ---
@@ -171,6 +172,7 @@ spec:
   url: https://www.backblaze.com/
   info: Manage Off Site Backups  
 ---
+
 
 
 
