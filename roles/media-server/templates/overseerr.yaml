@@ -39,6 +39,8 @@ spec:
           value: Media
         - name: application.icon
           value: eye-circle
+        - name: application.iconColor
+          value: purple
         - name: application.image
           value: 'https://raw.githubusercontent.com/sct/overseerr/develop/public/logo_full.svg'
         - name: application.description
@@ -76,4 +78,5 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
 {{ end }}
