@@ -16,10 +16,18 @@
   color: "72ccf3"
   description: >-
     Changes made in the hack directory
-- name: area/terraform
+- name: area/cluster
   color: "72ccf3"
   description: >-
-    Changes made in the terraform directory
+    Changes made in the cluster directory
+- name: area/clusters
+  color: "72ccf3"
+  description: >-
+    Changes made in the clusters directory
+- name: area/roles
+  color: "72ccf3"
+  description: >-
+    Changes made in the roles directory
 # Renovate
 - name: renovate/ansible
   color: "ffc300"
@@ -62,3 +70,4 @@
   color: "cc317c"
 - name: community
   color: "0e8a16"
+
