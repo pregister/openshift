@@ -6,5 +6,11 @@
       matchPackageNames: ["ghcr.io/home-operations/radarr"],
       allowedVersions: "<6",
     },
+    {
+      "matchManagers": ["helmv3"],
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["app-template"],
+      "enabled": false
+    }
   ],
 }
