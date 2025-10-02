@@ -2,12 +2,28 @@
 area/ansible:
   - changed-files:
       - any-glob-to-any-file: "ansible/**/*"
+area/docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**/*"
+          - "README.md"
 area/github:
-  - any-glob-to-any-file: ".github/**/*"
-area/kubernetes:
-  - any-glob-to-any-file: "charts/**/*"
-  - any-glob-to-any-file: "deploy/**/*"
-area/hack:
-  - any-glob-to-any-file: "hack/**/*"
-area/terraform:
-  - any-glob-to-any-file: "terraform/**/*"
+  - changed-files:
+      - any-glob-to-any-file: ".github/**/*"
+area/charts:
+  - changed-files:
+      - any-glob-to-any-file: "charts/**/*"
+area/cluster:
+  - changed-files:
+      - any-glob-to-any-file: "cluster/**/*"
+area/clusters:
+  - changed-files:
+      - any-glob-to-any-file: "clusters/**/*"
+area/roles:
+  - changed-files:
+      - any-glob-to-any-file: "roles/**/*"
+area/renovate:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/renovate/**/*"
+          - "github/renovate.json5"
