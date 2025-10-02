@@ -22,6 +22,7 @@
     ],
     ignorePaths: [
         '**/archive/**',
+        'charts/media-application/values.yaml',
     ],
     timezone: 'America/New_York',
     registryAliases: {
