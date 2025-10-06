@@ -17,6 +17,7 @@ applications:
   kavita: true
   lidarr: true
   overseerr: true
+  jellyseerr: true
   plex: true
   prowlarr: true
   radarr: true
@@ -31,4 +32,5 @@ config:
 media:
   nfs:
     server: my-nas
+
     path: /mnt/nfs
