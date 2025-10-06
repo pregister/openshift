@@ -16,7 +16,7 @@ applications:
   gaps: true
   kavita: true
   lidarr: true
-  overseerr: true
+  overseerr: false
   jellyseerr: true
   plex: true
   prowlarr: true
@@ -34,3 +34,4 @@ media:
     server: my-nas
 
     path: /mnt/nfs
+
