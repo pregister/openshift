@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: snapshot-finalizer-remover
+  namespace: openshift-gitops
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: snapshot-finalizer-remover
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    path: charts/tweaks/snapshot-finalizer-remover
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      parameters:
+        - name: cronjob.schedule
+          value: ""0 * * * *""
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
