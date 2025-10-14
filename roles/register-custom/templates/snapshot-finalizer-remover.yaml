@@ -17,7 +17,7 @@ spec:
     helm:
       parameters:
         - name: cronjob.schedule
-          value: ""0 * * * *""
+          value: "0 * * * *"
   syncPolicy:
     automated:
       prune: true
