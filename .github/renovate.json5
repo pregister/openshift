@@ -24,6 +24,11 @@
         '**/archive/**',
         'charts/media-application/values.yaml',
     ],
+    ignoreDeps: [
+      "registry.connect.redhat.com/intel/intel-gpu-plugin",
+      "registry.redhat.io/openshift4/ose-node-feature-discovery-rhel9",
+      "registry.redhat.io/openshift4/ose-cli",
+    ],
     timezone: 'America/New_York',
     registryAliases: {
         'bjw-s': 'https://bjw-s-labs.github.io/helm-charts',
