@@ -7,6 +7,16 @@
       allowedVersions: "<6",
     },
     {
+      matchManagers: ["helm", "helm-values"],
+      matchPackageNames: ["ghcr.io/home-operations/radarr"],
+      allowedVersions: "<6",
+    },
+    {
+      matchManagers: ["helm", "helm-values"],
+      matchPackageNames: ["ghcr.io/home-operations/lidarr"],
+      allowedVersions: "<3",
+    },
+    {
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
       "matchPackageNames": ["app-template"],
