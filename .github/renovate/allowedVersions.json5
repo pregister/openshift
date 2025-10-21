@@ -2,12 +2,13 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      matchManagers: ["helm", "helm-values", "docker"],
+      dataSources: ["docker"],
       matchPackageNames: ["ghcr.io/home-operations/radarr"],
       allowedVersions: "<6",
     },
+
     {
-      matchManagers: ["helm", "helm-values", "docker"],
+      dataSources: ["docker"],
       matchPackageNames: ["ghcr.io/home-operations/lidarr"],
       allowedVersions: "<3",
     },
