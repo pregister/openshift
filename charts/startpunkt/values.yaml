@@ -17,6 +17,7 @@ app-template:
             pullPolicy: Always
           env:
             TZ: TIMEZONE
+            STARTPUNKT_AVAILABILITY_IGNORECERTIFICATES: 'true'
           probes:
             startup:
               enabled: true
@@ -49,4 +50,5 @@ app-template:
         - 109
         - 100
         - 65535
+
 
