@@ -13,7 +13,7 @@ app-template:
           image:
             # renovate: docker-image
             repository: ghcr.io/ullbergm/startpunkt
-            tag: 3.2.0
+            tag: 3.2.0-amd64
             pullPolicy: Always
           env:
             TZ: TIMEZONE
@@ -51,6 +51,7 @@ app-template:
         - 109
         - 100
         - 65535
+
 
 
 
