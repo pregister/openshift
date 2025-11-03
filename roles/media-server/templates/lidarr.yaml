@@ -38,7 +38,7 @@ spec:
         - name: application.group
           value: Media
         - name: application.icon
-          value: music-box
+          value: https://raw.githubusercontent.com/Prowlarr/Prowlarr/e4fb36e08fc02d6fa050ebdcd78bbe70f05e53b8/frontend/src/Content/Images/Icons/logo-lidarr.png
         - name: application.image
           value: 'https://raw.githubusercontent.com/Lidarr/Lidarr/develop/Logo/400.png'
         - name: application.description
@@ -76,4 +76,5 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
 {{ end }}
