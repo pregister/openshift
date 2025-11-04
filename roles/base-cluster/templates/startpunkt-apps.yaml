@@ -18,7 +18,7 @@ metadata:
   name: github
   namespace: startpunkt
 spec:
-  name: GitHub Repo
+  name: GitHub
   group: Infrastructure
   icon: simple-icons:github
   url: {{ .Values.spec.source.repoURL }}
