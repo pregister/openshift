@@ -44,7 +44,7 @@ spec:
         - name: application.image
           value: 'https://raw.githubusercontent.com/sabnzbd/sabnzbd/develop/icons/logo-arrow.svg'
         - name: application.description
-          value: "Efficient Usenet downloader"
+          value: "Usenet downloader"
         - name: application.location
           value: '100'
         - name: app-template.service.main.ports.http.port
