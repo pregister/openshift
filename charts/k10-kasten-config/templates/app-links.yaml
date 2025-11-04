@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: kasten-k10
 spec:
-  name: Kasten K10
+  name: Kasten
   group: Infrastructure
   icon: backup
   url: https://k10-route-kasten-io.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}/k10/
