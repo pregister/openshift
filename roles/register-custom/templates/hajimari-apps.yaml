@@ -42,7 +42,7 @@ metadata:
   name: zwavemqtt
   namespace: hajimari
 spec:
-  name: Zwave Mqtt
+  name: Zwave
   group: Home Automation
   icon: mdi:zwave
   url: http://nas.{{ .Values.cluster.top_level_domain }}:8091
@@ -54,7 +54,7 @@ metadata:
   name: zigbeemqtt
   namespace: hajimari
 spec:
-  name: Zigbee Mqtt
+  name: Zigbee
   group: Home Automation
   icon: mdi:zigbee
   url: http://nas.{{ .Values.cluster.top_level_domain }}:8092
