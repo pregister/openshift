@@ -3,18 +3,33 @@ kind: SecurityContextConstraints
 apiVersion: security.openshift.io/v1
 metadata:
   name: controller-manager
+allowPrivilegedContainer: true
+allowHostDirVolumePlugin: true
+allowHostIPC: false
+allowHostNetwork: true
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+requiredDropCapabilities: []
+allowedCapabilities:
+  - NET_ADMIN
+  - NET_RAW
+defaultAddCapabilities: []
 fsGroup:
   type: RunAsAny
+groups: []
+priority: 10
+readOnlyRootFilesystem: false
 runAsUser:
   type: RunAsAny
 seLinuxContext:
-  type: RunAsAny
+  type: MustRunAs
+seccompProfiles:
+  - runtime/default
+  - docker/default
 supplementalGroups:
   type: RunAsAny
-allowPrivilegedContainer: true
-allowHostNetwork: true
-allowHostPorts: true
-allowHostDirVolumePlugin: true
-allowPrivilegeEscalation: true
+volumes:
+  - '*'
 users:
 - system:serviceaccount:keepalived-operator:default
