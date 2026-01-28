@@ -1,0 +1,31 @@
+cluster:
+  top_level_domain: example.com
+  name: openshift
+  admin_email: admin@example.com
+  timezone: America/New_York
+  storage:
+    #config:
+    #  storageClassName: synology-iscsi
+
+application:
+  name: Dispatcharr
+  group: Media
+  icon: mdi:broadcast
+  iconColor: ""
+  image: "https://raw.githubusercontent.com/Dispatcharr/Dispatcharr/refs/heads/main/frontend/src/images/logo.png"
+  description: "IPTV stream dispatcher and manager"
+  port: 9191
+  location: 0
+
+pods:
+  main:
+    image:
+      # renovate custom-docker versioning=semver
+      repository: ghcr.io/dispatcharr/dispatcharr
+      tag: 0.18.1
+      pullPolicy: IfNotPresent
+    env:
+      DISPATCHARR_ENV: "aio"
+      REDIS_HOST: "localhost"
+      CELERY_BROKER_URL: "redis://localhost:6379/0"
+      DISPATCHARR_LOG_LEVEL: "info"

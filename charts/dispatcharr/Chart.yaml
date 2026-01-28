@@ -1,0 +1,24 @@
+apiVersion: v2
+description: A Helm chart for Dispatcharr
+name: dispatcharr
+version: 1.0.0
+appVersion: "0.4.0"
+kubeVersion: ">=1.31.0-0"
+home: https://github.com/Dispatcharr/Dispatcharr
+icon: https://raw.githubusercontent.com/Dispatcharr/Dispatcharr/refs/heads/main/frontend/src/images/logo.png
+sources:
+  - https://github.com/Dispatcharr/Dispatcharr
+keywords:
+  - dispatcharr
+  - iptv
+  - media
+annotations:
+  charts.openshift.io/name: dispatcharr
+  charts.openshift.io/provider: ullberg
+  charts.openshift.io/providerType: community
+  category: Media
+  licenses: GPL-3.0-only
+
+maintainers:
+  - name: Magnus Ullberg
+    email: magnus@ullberg.us
