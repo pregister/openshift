@@ -29,7 +29,6 @@ spec:
       serviceAccountName: {{ .Release.Name }}
       automountServiceAccountToken: true
       securityContext:
-        fsGroup: 0
         fsGroupChangePolicy: OnRootMismatch
         runAsGroup: 0
         runAsUser: 0
@@ -54,3 +53,4 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-config
+
