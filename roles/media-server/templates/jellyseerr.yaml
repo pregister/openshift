@@ -52,7 +52,7 @@ spec:
         - name: app-template.controllers.main.containers.main.image.repository
           value: ghcr.io/seerr-team/seerr
         - name: app-template.controllers.main.containers.main.image.tag
-          value: 3.0.1
+          value: v3.0.1
         - name: app-template.controllers.main.containers.main.image.pullPolicy
           value: IfNotPresent
         - name: app-template.controllers.main.containers.main.env.TZ
