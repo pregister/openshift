@@ -50,7 +50,7 @@ spec:
         - name: app-template.controllers.main.containers.main.image.repository
           value: ghcr.io/pregister/filamentinventory
         - name: app-template.controllers.main.containers.main.image.tag
-          value: latest
+          value: main
         - name: app-template.controllers.main.containers.main.image.pullPolicy
           value: Always
         - name: app-template.controllers.main.containers.main.env.TZ
