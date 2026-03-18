@@ -25,6 +25,7 @@ applications:
   sabnzbd: true
   sonarr: true
   tautulli: true
+  filament-inventory: true
 
 config:
   storageClassName: "synology-iscsi"
