@@ -34,7 +34,7 @@ spec:
           value: {{ .Values.media.nfs.path }}
 
         - name: application.name
-          value: filamentinventory
+          value: filaments
         - name: application.group
           value: Media
         - name: application.icon
