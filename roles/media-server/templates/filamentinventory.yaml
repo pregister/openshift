@@ -36,9 +36,9 @@ spec:
         - name: application.name
           value: filaments
         - name: application.group
-          value: Media
+          value: Home Automation
         - name: application.icon
-          value: inventory
+          value: cbi:3d-filament
         - name: application.image
           value: 'https://raw.githubusercontent.com/Lidarr/Lidarr/develop/Logo/400.png'
         - name: application.description
