@@ -22,7 +22,7 @@ pods:
     image:
       # renovate custom-docker versioning=semver
       repository: ghcr.io/dispatcharr/dispatcharr
-      tag: 0.21.1
+      tag: 0.22.0
       pullPolicy: IfNotPresent
     env:
       DISPATCHARR_ENV: "aio"
