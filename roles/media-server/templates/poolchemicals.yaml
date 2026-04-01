@@ -40,7 +40,7 @@ spec:
         - name: application.icon
           value: inventory
         - name: application.image
-          value: 'https://raw.githubusercontent.com/Lidarr/Lidarr/develop/Logo/400.png'
+          value: 'material-symbols:pool'
         - name: application.description
           value: "Manages your Pool"
         - name: app-template.service.main.ports.http.port
