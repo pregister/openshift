@@ -26,6 +26,7 @@ applications:
   sonarr: true
   tautulli: true
   filamentinventory: true
+  poolchemicals: true
 
 config:
   storageClassName: "synology-iscsi"
