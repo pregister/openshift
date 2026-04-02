@@ -62,8 +62,6 @@ spec:
           value: poolchemicals-data-volume
         - name: app-template.persistence.config.existingClaim
           value: poolchemicals-config
-        - name: app-template.persistence.config.globalMounts[0].path
-          value: /usr/src/app/data
 
         - name: app-template.defaultPodOptions.labels.app
           value: poolchemicals
