@@ -125,19 +125,6 @@ spec:
 apiVersion: startpunkt.ullberg.us/v1alpha2
 kind: Application
 metadata:
-  name: teslamate
-  namespace: hajimari
-spec:
-  name: Teslamate
-  group: Infrastructure
-  icon: simple-icons:tesla
-  iconColor: red
-  url: http://teslamate.apps.openshift.{{ .Values.cluster.top_level_domain }}
-  info: Manage Tesla  
----
-apiVersion: startpunkt.ullberg.us/v1alpha2
-kind: Application
-metadata:
   name: valetudo
   namespace: hajimari
 spec:
