@@ -1,0 +1,59 @@
+# Flow Analyzer (NetFlow/IPFIX collector + dashboard). The chart lives in
+# ullbergm/openshift and is tracked from its v2 branch, so image bumps there
+# roll out here too.
+#
+# The ClickHouse password is in a hand-made Secret `flow-analyzer` in the
+# flow-analyzer namespace (key CLICKHOUSE_PASSWORD); this cluster has no
+# External Secrets Operator. Site addresses come from flowAnalyzer.*
+# Argo parameters on the cluster Application.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flow-analyzer
+  namespace: openshift-gitops
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: flow-analyzer
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://github.com/ullbergm/openshift.git
+    path: charts/infrastructure/flow-analyzer
+    targetRevision: v2
+    helm:
+      valuesObject:
+        cluster:
+          top_level_domain: {{ .Values.cluster.top_level_domain }}
+          name: {{ .Values.cluster.name }}
+          admin_email: {{ .Values.cluster.admin_email }}
+          timezone: {{ .Values.cluster.timezone }}
+        externalSecret:
+          enabled: false
+        secrets:
+          existingSecret: flow-analyzer
+        flow-analyzer:
+          network:
+            # Collector's static LAN address (localnet over br-ex, bridge
+            # mapping "lan"); free and outside the DHCP pool. Empty keeps
+            # the collector reachable only inside the cluster.
+            ip: {{ .Values.flowAnalyzer.network.ip | quote }}
+            prefixLength: {{ .Values.flowAnalyzer.network.prefixLength | int }}
+            physicalNetworkName: lan
+          allowedExporters: {{ .Values.flowAnalyzer.allowedExporters | quote }}
+          {{- with .Values.flowAnalyzer.internalSubnets }}
+          internalSubnets: {{ . | quote }}
+          {{- end }}
+          knownNetworks: {{ .Values.flowAnalyzer.knownNetworks | quote }}
+          dnsServer: {{ .Values.flowAnalyzer.dnsServer | quote }}
+          probes:
+            targets: {{ .Values.flowAnalyzer.probeTargets | quote }}
+          firewallLog:
+            enabled: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

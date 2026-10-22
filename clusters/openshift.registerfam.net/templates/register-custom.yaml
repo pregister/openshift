@@ -38,6 +38,21 @@ spec:
           value: {{ .Values.media.nfs.server }}
         - name: media.nfs.path
           value: {{ .Values.media.nfs.path }}
+
+        - name: flowAnalyzer.network.ip
+          value: {{ .Values.flowAnalyzer.network.ip | quote }}
+        - name: flowAnalyzer.network.prefixLength
+          value: {{ .Values.flowAnalyzer.network.prefixLength | quote }}
+        - name: flowAnalyzer.allowedExporters
+          value: {{ .Values.flowAnalyzer.allowedExporters | quote }}
+        - name: flowAnalyzer.internalSubnets
+          value: {{ .Values.flowAnalyzer.internalSubnets | quote }}
+        - name: flowAnalyzer.knownNetworks
+          value: {{ .Values.flowAnalyzer.knownNetworks | quote }}
+        - name: flowAnalyzer.dnsServer
+          value: {{ .Values.flowAnalyzer.dnsServer | quote }}
+        - name: flowAnalyzer.probeTargets
+          value: {{ .Values.flowAnalyzer.probeTargets | quote }}
   syncPolicy:
     automated:
       selfHeal: true

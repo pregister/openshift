@@ -64,3 +64,14 @@ network:
     storageIp:
       ip: 10.0.0.3
       prefixLength: "24"
+# Flow Analyzer site settings. Real values are Argo parameters on the
+# cluster Application (flowAnalyzer.*), not in git.
+flowAnalyzer:
+  network:
+    ip: ""
+    prefixLength: "24"
+  allowedExporters: ""
+  internalSubnets: ""
+  knownNetworks: ""
+  dnsServer: ""
+  probeTargets: ""
