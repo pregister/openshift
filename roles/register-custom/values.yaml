@@ -15,3 +15,14 @@ media:
   nfs:
     server: my-nas
     path: /mnt/nfs
+# Flow Analyzer site settings. Real values are Argo parameters on the
+# cluster Application (flowAnalyzer.*), not in git.
+flowAnalyzer:
+  network:
+    ip: ""
+    prefixLength: "24"
+  allowedExporters: ""
+  internalSubnets: ""
+  knownNetworks: ""
+  dnsServer: ""
+  probeTargets: ""
