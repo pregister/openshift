@@ -1,62 +1,24 @@
-app-template:
-  controllers:
-    main:
-      type: deployment
-      replicas: 3
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-      labels:
-        kasten/backup: "true"
-      containers:
-        main:
-          image:
-            # renovate: docker-image
-            repository: ghcr.io/ullbergm/startpunkt
-            tag: 5.0.0
-            pullPolicy: Always
-          env:
-            TZ: TIMEZONE
-            STARTPUNKT_AVAILABILITY_ENABLED: 'false'
-            STARTPUNKT_AVAILABILITY_IGNORECERTIFICATES: 'true'
-          probes:
-            startup:
-              enabled: true
-            readiness:
-              enabled: true
-            liveness:
-              enabled: true
-
-      serviceAccount:
-        name: startpunkt-sa
-
-  service:
-    main:
-      controller: main
-      ports:
-        http:
-          port: 8080
-
-  defaultPodOptions:
-    labels:
-      app: startpunkt
-      version: 1.0.0
-    securityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 44
-        - 109
-        - 100
-        - 65535
-
-
-
-
-
-
-
-
-
+# Upstream chart (oci://ghcr.io/ullbergm/charts/startpunkt).
+startpunkt:
+  # Three Deployments: controller (the only one with a service account
+  # token), api and web.
+  mode: split
+  # image.tag is left at its default, the version of the chart.
+  # crds.install is left at its default: this release owns the Application
+  # and Bookmark definitions and upgrades them with the chart. They are kept
+  # if the release is removed.
+  availability:
+    enabled: false
+  resources:
+    controller:
+      requests: {cpu: 10m, memory: 48Mi}
+      limits: {memory: 192Mi}
+    api:
+      requests: {cpu: 5m, memory: 24Mi}
+      limits: {memory: 96Mi}
+    web:
+      requests: {cpu: 5m, memory: 16Mi}
+      limits: {memory: 64Mi}
+  # Routes are in templates/route.yaml (cluster naming scheme).
+  route:
+    enabled: false
