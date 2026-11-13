@@ -9,6 +9,13 @@ startpunkt:
   # if the release is removed.
   availability:
     enabled: false
+  # Applications and bookmarks can be added, changed and removed from the
+  # page by whoever has the edit key. The key is not in git: it is the entry
+  # "key", at least 16 characters, of the Secret startpunkt-edit-key in the
+  # startpunkt namespace, which is made by hand.
+  editing:
+    enabled: true
+    existingSecret: startpunkt-edit-key
   resources:
     controller:
       requests: {cpu: 10m, memory: 48Mi}
