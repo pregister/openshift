@@ -9,5 +9,5 @@ maintainers:
     email: magnus@ullberg.us
 dependencies:
   - name: startpunkt
-    version: "5.0.0"
+    version: "5.0.1"
     repository: "oci://ghcr.io/ullbergm/charts"
