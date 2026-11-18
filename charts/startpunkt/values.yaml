@@ -3,6 +3,10 @@ startpunkt:
   # Three Deployments: controller (the only one with a service account
   # token), api and web.
   mode: split
+  config:
+    web:
+      defaultPreferences:
+        colors: ocean
   # image.tag is left at its default, the version of the chart.
   # crds.install is left at its default: this release owns the Application
   # and Bookmark definitions and upgrades them with the chart. They are kept
