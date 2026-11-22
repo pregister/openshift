@@ -98,6 +98,26 @@ spec:
             argocd.argoproj.io/sync-options: ServerSideApply=true
         trashGuide:
           create: false
+  # Argo CD 2.12 does not know the Deployment status field
+  # terminatingReplicas, which fails the whole comparison, and reads the
+  # API server's defaults on the admission policy as drift.
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /status/terminatingReplicas
+    - group: admissionregistration.k8s.io
+      kind: ValidatingAdmissionPolicy
+      jqPathExpressions:
+        - .spec.matchConstraints.matchPolicy
+        - .spec.matchConstraints.namespaceSelector
+        - .spec.matchConstraints.objectSelector
+        - .spec.matchConstraints.resourceRules[].scope
+    - group: admissionregistration.k8s.io
+      kind: ValidatingAdmissionPolicyBinding
+      jqPathExpressions:
+        - .spec.matchResources.matchPolicy
+        - .spec.matchResources.objectSelector
   syncPolicy:
     automated:
       prune: true
