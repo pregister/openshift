@@ -71,9 +71,6 @@ spec:
           value: 4.0.4.1491
 
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
 {{ end }}
