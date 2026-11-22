@@ -1,0 +1,106 @@
+# episodic: the series manager. Argo installs the chart from a private OCI
+# registry. Three Secrets are made by hand and are not in git: the
+# repository credential for ghcr.io/ullbergm/charts in openshift-gitops,
+# and ghcr-pull (image pulls) and episodic-key (the API key) in the
+# episodic namespace.
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: episodic
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: episodic-data-volume
+spec:
+  capacity:
+    storage: 1Mi
+  nfs:
+    server: {{ .Values.media.nfs.server }}
+    path: {{ .Values.media.nfs.path }}
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    namespace: episodic
+    name: episodic-data-volume
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4.1
+    - nconnect=8
+    - hard
+    - noatime
+    - rsize=131072
+    - wsize=131072
+  volumeMode: Filesystem
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: episodic-data-volume
+  namespace: episodic
+  labels:
+    kasten/skip: 'true'
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
+  volumeName: episodic-data-volume
+  storageClassName: ''
+  volumeMode: Filesystem
+---
+# No resources-finalizer: deleting this Application must not delete the
+# chart's CRDs, which would delete the whole library's objects with them.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: episodic
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: episodic
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: ghcr.io/ullbergm/charts
+    chart: episodic
+    targetRevision: 0.13.2
+    helm:
+      releaseName: episodic
+      valuesObject:
+        openshift:
+          enabled: true
+        storage:
+          mediaClaim: episodic-data-volume
+        apiKey:
+          existingSecret: episodic-key
+        image:
+          pullSecrets:
+            - ghcr-pull
+        api:
+          route:
+            enabled: false
+            tls:
+              termination: edge
+              insecureEdgeTerminationPolicy: Redirect
+        spa:
+          route:
+            enabled: true
+            host: episodic.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+            tls:
+              termination: edge
+              insecureEdgeTerminationPolicy: Redirect
+        # Argo owns only the fields set here; the rest is configured in the UI.
+        episodicConfig:
+          annotations:
+            argocd.argoproj.io/sync-options: ServerSideApply=true
+        trashGuide:
+          create: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
