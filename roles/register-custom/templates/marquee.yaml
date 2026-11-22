@@ -1,0 +1,106 @@
+# marquee: the movie manager. Argo installs the chart from a private OCI
+# registry. Three Secrets are made by hand and are not in git: the
+# repository credential for ghcr.io/ullbergm/charts in openshift-gitops,
+# and ghcr-pull (image pulls) and marquee-key (the API key) in the
+# marquee namespace.
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: marquee
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: marquee-data-volume
+spec:
+  capacity:
+    storage: 1Mi
+  nfs:
+    server: {{ .Values.media.nfs.server }}
+    path: {{ .Values.media.nfs.path }}
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    namespace: marquee
+    name: marquee-data-volume
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4.1
+    - nconnect=8
+    - hard
+    - noatime
+    - rsize=131072
+    - wsize=131072
+  volumeMode: Filesystem
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: marquee-data-volume
+  namespace: marquee
+  labels:
+    kasten/skip: 'true'
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
+  volumeName: marquee-data-volume
+  storageClassName: ''
+  volumeMode: Filesystem
+---
+# No resources-finalizer: deleting this Application must not delete the
+# chart's CRDs, which would delete the whole library's objects with them.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: marquee
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: marquee
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: ghcr.io/ullbergm/charts
+    chart: marquee
+    targetRevision: 0.17.7
+    helm:
+      releaseName: marquee
+      valuesObject:
+        openshift:
+          enabled: true
+        storage:
+          mediaClaim: marquee-data-volume
+        apiKey:
+          existingSecret: marquee-key
+        image:
+          pullSecrets:
+            - ghcr-pull
+        api:
+          route:
+            enabled: false
+            tls:
+              termination: edge
+              insecureEdgeTerminationPolicy: Redirect
+        spa:
+          route:
+            enabled: true
+            host: marquee.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+            tls:
+              termination: edge
+              insecureEdgeTerminationPolicy: Redirect
+        # Argo owns only the fields set here; the rest is configured in the UI.
+        marqueeConfig:
+          annotations:
+            argocd.argoproj.io/sync-options: ServerSideApply=true
+        trashGuide:
+          create: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
