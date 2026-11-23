@@ -16,7 +16,9 @@
         'github>pregister/openshift//.github/renovate/semanticCommits.json5',
         'helpers:pinGitHubActionDigests',
     ],
-    dependencyDashboardTitle: 'Renovate Dashboard',
+    dependencyDashboard: {
+        title: 'Renovate Dashboard',
+    },
     suppressNotifications: [
         'prIgnoreNotification',
     ],
@@ -25,25 +27,28 @@
         'charts/media-application/values.yaml',
     ],
     ignoreDeps: [
-      "registry.connect.redhat.com/intel/intel-gpu-plugin",
-      "registry.redhat.io/openshift4/ose-node-feature-discovery-rhel9",
-      "registry.redhat.io/openshift4/ose-cli",
+        'registry.connect.redhat.com/intel/intel-gpu-plugin',
+        'registry.redhat.io/openshift4/ose-node-feature-discovery-rhel9',
+        'registry.redhat.io/openshift4/ose-cli',
     ],
     timezone: 'America/New_York',
-    // The marquee and episodic charts are private packages on ghcr.io.
-    // Renovate's login for them is a host rule kept in the Renovate app's
-    // settings for this repository, not here.
     packageRules: [
         {
             description: 'The marquee and episodic charts: every new version is committed to the branch, with no pull request',
-            matchDatasources: ['docker'],
-            matchPackageNames: ['ghcr.io/ullbergm/charts/**'],
+            matchDatasources: [
+                'docker',
+            ],
+            matchPackageNames: [
+                'ghcr.io/ullbergm/charts/**',
+            ],
             automerge: true,
             automergeType: 'branch',
             ignoreTests: true,
             commitMessageTopic: 'chart {{depName}}',
             semanticCommitScope: 'register-custom',
-            addLabels: ['renovate/helm'],
+            addLabels: [
+                'renovate/helm',
+            ],
         },
     ],
     registryAliases: {
