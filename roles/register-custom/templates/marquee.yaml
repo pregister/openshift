@@ -90,6 +90,12 @@ spec:
           mediaClaim: marquee-data-volume
         apiKey:
           existingSecret: marquee-key
+        # Both apps' claims are the same NFS export, so each keeps its
+        # poster cache in a folder of its own. The chart's default (.covers)
+        # is one folder for both, and their numbered files overwrite each other.
+        metadata:
+          covers:
+            subPath: marquee/covers
         image:
           pullSecrets:
             - ghcr-pull
