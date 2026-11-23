@@ -51,6 +51,20 @@ spec:
   storageClassName: ''
   volumeMode: Filesystem
 ---
+apiVersion: startpunkt.ullberg.us/v1
+kind: Application
+metadata:
+  name: marquee
+  namespace: marquee
+spec:
+  name: marquee
+  group: Media
+  icon: movie-open
+  iconColor: ""
+  url: https://marquee.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+  info: Manages your movie library
+  location: 0
+---
 # No resources-finalizer: deleting this Application must not delete the
 # chart's CRDs, which would delete the whole library's objects with them.
 apiVersion: argoproj.io/v1alpha1
