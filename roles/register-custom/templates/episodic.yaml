@@ -139,6 +139,17 @@ spec:
         episodicConfig:
           annotations:
             argocd.argoproj.io/sync-options: ServerSideApply=true
+          # Skip markers (intros): the operator analyses a series when it
+          # gets a new file, and the rest of the library a little each
+          # night (01:00 UTC for five hours). What an analysis keeps goes
+          # in a folder of the app's own on the media claim.
+          sidecars:
+            overlay:
+              subPath: episodic/overlay
+          spec:
+            mediaManagement:
+              analysis:
+                enabled: true
         trashGuide:
           create: false
   # Argo CD 2.12 does not know the Deployment status field
