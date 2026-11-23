@@ -99,7 +99,30 @@ spec:
         image:
           pullSecrets:
             - ghcr-pull
+        # The charts' default limit (256Mi) is too small for this library:
+        # the operator and the api keep every title in memory and were
+        # killed for running out of it.
+        operator:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+        sonarrShim:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
         api:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
           route:
             enabled: false
             tls:
