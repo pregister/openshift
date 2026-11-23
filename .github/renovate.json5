@@ -31,16 +31,8 @@
     ],
     timezone: 'America/New_York',
     // The marquee and episodic charts are private packages on ghcr.io.
-    // GHCR_READ_TOKEN is a repository secret of the Renovate app: a token
-    // of this account that may read those packages (read:packages).
-    hostRules: [
-        {
-            matchHost: 'ghcr.io',
-            hostType: 'docker',
-            username: 'pregister',
-            password: '{{ secrets.GHCR_READ_TOKEN }}',
-        },
-    ],
+    // Renovate's login for them is a host rule kept in the Renovate app's
+    // settings for this repository, not here.
     packageRules: [
         {
             description: 'The marquee and episodic charts: every new version is committed to the branch, with no pull request',
