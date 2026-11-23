@@ -80,7 +80,7 @@ spec:
   source:
     repoURL: ghcr.io/ullbergm/charts
     chart: marquee
-    targetRevision: 0.17.7
+    targetRevision: 0.17.8
     helm:
       releaseName: marquee
       valuesObject:
