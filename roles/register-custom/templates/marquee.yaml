@@ -81,7 +81,7 @@ spec:
     repoURL: ghcr.io/ullbergm/charts
     chart: marquee
     # renovate: datasource=docker depName=ghcr.io/ullbergm/charts/marquee
-    targetRevision: 0.17.13
+    targetRevision: 0.17.14
     helm:
       releaseName: marquee
       valuesObject:
