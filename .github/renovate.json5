@@ -30,6 +30,22 @@
       "registry.redhat.io/openshift4/ose-cli",
     ],
     timezone: 'America/New_York',
+    // The marquee and episodic charts are private packages on ghcr.io.
+    // Renovate's login for them is a host rule kept in the Renovate app's
+    // settings for this repository, not here.
+    packageRules: [
+        {
+            description: 'The marquee and episodic charts: every new version is committed to the branch, with no pull request',
+            matchDatasources: ['docker'],
+            matchPackageNames: ['ghcr.io/ullbergm/charts/**'],
+            automerge: true,
+            automergeType: 'branch',
+            ignoreTests: true,
+            commitMessageTopic: 'chart {{depName}}',
+            semanticCommitScope: 'register-custom',
+            addLabels: ['renovate/helm'],
+        },
+    ],
     registryAliases: {
         'bjw-s': 'https://bjw-s-labs.github.io/helm-charts',
     },
@@ -44,6 +60,17 @@
             matchStrings: [
                 '#\\s?renovate custom-docker\\s?(?: versioning=(?<versioning>[a-z-]+?))?\\s*- name:.*\\s*value:\\s?(?<depName>[.\\w\\d-/]+)\\s*- name:.*\\s*value:\\s?(?<currentValue>[.\\w\\d-]+)',
             ],
+        },
+        {
+            customType: 'regex',
+            description: 'Update the chart version of an Argo CD Application that takes its chart from an OCI registry',
+            managerFilePatterns: [
+                '/(^|/)[^\\.]*\\.ya?ml$/',
+            ],
+            matchStrings: [
+                '#\\s?renovate: datasource=(?<datasource>[a-z-]+) depName=(?<depName>\\S+)\\s+targetRevision:\\s?(?<currentValue>\\S+)',
+            ],
+            versioningTemplate: 'semver',
         },
     ],
     enabledManagers: [
