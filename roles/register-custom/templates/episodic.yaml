@@ -80,7 +80,7 @@ spec:
   source:
     repoURL: ghcr.io/ullbergm/charts
     chart: episodic
-    targetRevision: 0.13.4
+    targetRevision: 0.14.0
     helm:
       releaseName: episodic
       valuesObject:
