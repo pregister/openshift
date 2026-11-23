@@ -43,10 +43,12 @@
     ],
     packageRules: [
         {
-            description: 'The marquee and episodic charts: a pull request for every version, never merged by Renovate',
+            description: 'The marquee and episodic charts: every new version is committed to the branch, with no pull request',
             matchDatasources: ['docker'],
             matchPackageNames: ['ghcr.io/ullbergm/charts/**'],
-            automerge: false,
+            automerge: true,
+            automergeType: 'branch',
+            ignoreTests: true,
             commitMessageTopic: 'chart {{depName}}',
             semanticCommitScope: 'register-custom',
             addLabels: ['renovate/helm'],
