@@ -1,0 +1,256 @@
+# Programme: the daily app for the movie and series libraries (browsing,
+# requests, the calendar, downloads) and the playback API for the Jellyfin
+# and Emby apps. It reads marquee and episodic through their APIs. Argo
+# installs two charts from a private OCI registry under one release name.
+# Four Secrets are made by hand and are not in git, all in the programme
+# namespace: ghcr-pull (image pulls), programme-key (the API key, key
+# "apiKey"), and programme-marquee and programme-episodic (keys "endpoint"
+# and "apiKey": the manager's cluster address and its API key).
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: programme
+---
+# The catalog database: titles, accounts, requests. Never pruned.
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: programme-catalog-data
+  namespace: programme
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# The playback database: users, app passwords, devices, watch state. Never
+# pruned.
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: programme-shim-data
+  namespace: programme
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: startpunkt.ullberg.us/v1
+kind: Application
+metadata:
+  name: programme
+  namespace: programme
+spec:
+  name: Programme
+  group: Media
+  icon: sofa
+  iconColor: ""
+  url: https://programme.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+  info: Library and playback
+  location: 0
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: programme
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: programme
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  sources:
+    # The web app and its API.
+    - repoURL: ghcr.io/ullbergm/charts
+      chart: foyer
+      targetRevision: 0.1.0-ba021c3
+      helm:
+        releaseName: programme
+        valuesObject:
+          platform: openshift
+          image:
+            repository: ghcr.io/ullbergm/foyer
+            tag: ba021c3
+            digest: sha256:e5e2d9eccf5dc893845ce5a3331084650bcdc52e30645e218d63322c186c5ee7
+            pullPolicy: IfNotPresent
+          imagePullSecrets:
+            - name: ghcr-pull
+          # More than the chart's 100m / 256Mi: a full catalog sync and
+          # reading the managers' searches and downloads are bursts.
+          resources:
+            requests:
+              cpu: 25m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          persistence:
+            enabled: true
+            existingClaim: programme-catalog-data
+          # People sign in with local accounts. The holder of the API key
+          # creates the first administrator in the UI.
+          accounts:
+            enabled: true
+          # Posters of titles the library lacks load in the browser from
+          # the metadata providers' image hosts.
+          discover:
+            imageHosts:
+              - image.tmdb.org
+              - artworks.thetvdb.com
+          route:
+            enabled: true
+            host: programme.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+          apiKey:
+            secretName: programme-key
+            secretKey: apiKey
+          # The Playback users page talks to the playback API's
+          # administration listener with the same key.
+          playback:
+            adminURL: http://programme-shim-admin.programme.svc:8098
+            allowClusterHTTP: true
+            egress:
+              namespace: programme
+              port: 8098
+          connections:
+            enabled: true
+            allowClusterHTTP: true
+            syncInterval: 10m
+            secrets:
+              - programme-marquee
+              - programme-episodic
+            items:
+              # requests: requested titles are added through the connection.
+              # manage: an administrator's daily actions go through it too
+              # (remove or blocklist a download, search, monitor, refresh,
+              # grab one chosen release).
+              - id: marquee-main
+                name: Marquee
+                backend: marquee
+                requests: true
+                manage: true
+                webUrl: https://marquee.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+                endpointRef:
+                  name: programme-marquee
+                  key: endpoint
+                tokenRef:
+                  name: programme-marquee
+                  key: apiKey
+              - id: episodic-main
+                name: Episodic
+                backend: episodic
+                requests: true
+                manage: true
+                webUrl: https://episodic.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+                endpointRef:
+                  name: programme-episodic
+                  key: endpoint
+                tokenRef:
+                  name: programme-episodic
+                  key: apiKey
+            egress:
+              dns:
+                namespace: openshift-dns
+                port: 5353
+              apis:
+                - namespace: marquee
+                  port: 8080
+                - namespace: episodic
+                  port: 8080
+    # The playback API for the phone, tablet and TV apps.
+    - repoURL: ghcr.io/ullbergm/charts
+      chart: foyer-shim
+      targetRevision: 0.1.0-ba021c3
+      helm:
+        releaseName: programme
+        valuesObject:
+          platform: openshift
+          image:
+            repository: ghcr.io/ullbergm/foyer-shim
+            tag: 0.1.0-5fd13c3
+            digest: sha256:a6b7faf18ce236c9599129e1e467153c7490a4ae969817524d0bddf73e11c649
+          imagePullSecrets:
+            - name: ghcr-pull
+          # The administration listener: its own Service, never on a Route,
+          # and only the web app's Pods reach it.
+          admin:
+            enabled: true
+            keySecret:
+              name: programme-key
+              key: apiKey
+            ingressFrom:
+              - podSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: foyer
+                    app.kubernetes.io/instance: programme
+          persistence:
+            existingClaim: programme-shim-data
+          shim:
+            # Only the router reaches the Pod, so its forwarding headers
+            # are believed.
+            trustForwarded: true
+            # The name the phone, tablet and TV apps show for the server.
+            serverName: Programme
+            refreshInterval: 10m
+          # One host for Jellyfin's apps and one for Emby's.
+          route:
+            enabled: true
+            name: programme-jellyfin
+            host: programme-jellyfin.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+            timeout: 5m
+            additional:
+              - name: programme-emby
+                host: programme-emby.apps.{{ .Values.cluster.name }}.{{ .Values.cluster.top_level_domain }}
+          connections:
+            allowClusterHTTP: true
+            secrets:
+              - programme-marquee
+              - programme-episodic
+            items:
+              - id: marquee-main
+                name: Movies
+                backend: marquee
+                endpointRef:
+                  name: programme-marquee
+                  key: endpoint
+                tokenRef:
+                  name: programme-marquee
+                  key: apiKey
+              - id: episodic-main
+                name: Shows
+                backend: episodic
+                endpointRef:
+                  name: programme-episodic
+                  key: endpoint
+                tokenRef:
+                  name: programme-episodic
+                  key: apiKey
+            egress:
+              dns:
+                namespace: openshift-dns
+                port: 5353
+              apis:
+                - namespace: marquee
+                  port: 8080
+                - namespace: episodic
+                  port: 8080
+  # Argo CD 2.12 does not know the Deployment status field
+  # terminatingReplicas, which fails the whole comparison.
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /status/terminatingReplicas
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
