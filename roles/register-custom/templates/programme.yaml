@@ -2,6 +2,8 @@
 # requests, the calendar, downloads) and the playback API for the Jellyfin
 # and Emby apps. It reads marquee and episodic through their APIs. Argo
 # installs two charts from a private OCI registry under one release name.
+# Renovate raises the two chart versions as they are published, each on its
+# own, and each chart's version names its image.
 # Four Secrets are made by hand and are not in git, all in the programme
 # namespace: ghcr-pull (image pulls), programme-key (the API key, key
 # "apiKey"), and programme-marquee and programme-episodic (keys "endpoint"
@@ -71,15 +73,16 @@ spec:
     # The web app and its API.
     - repoURL: ghcr.io/ullbergm/charts
       chart: foyer
-      targetRevision: 0.1.0-ba021c3
+      # renovate: datasource=docker depName=ghcr.io/ullbergm/charts/foyer
+      targetRevision: 0.2.0
       helm:
         releaseName: programme
         valuesObject:
           platform: openshift
           image:
             repository: ghcr.io/ullbergm/foyer
-            tag: ba021c3
-            digest: sha256:e5e2d9eccf5dc893845ce5a3331084650bcdc52e30645e218d63322c186c5ee7
+            # Empty: the chart's version names the image.
+            tag: ""
             pullPolicy: IfNotPresent
           imagePullSecrets:
             - name: ghcr-pull
@@ -167,15 +170,14 @@ spec:
     # The playback API for the phone, tablet and TV apps.
     - repoURL: ghcr.io/ullbergm/charts
       chart: foyer-shim
-      targetRevision: 0.1.0-ba021c3
+      # renovate: datasource=docker depName=ghcr.io/ullbergm/charts/foyer-shim
+      targetRevision: 0.2.0
       helm:
         releaseName: programme
         valuesObject:
           platform: openshift
           image:
             repository: ghcr.io/ullbergm/foyer-shim
-            tag: 0.1.0-5fd13c3
-            digest: sha256:a6b7faf18ce236c9599129e1e467153c7490a4ae969817524d0bddf73e11c649
           imagePullSecrets:
             - name: ghcr-pull
           # The administration listener: its own Service, never on a Route,
