@@ -34,7 +34,7 @@
     timezone: 'America/New_York',
     packageRules: [
         {
-            description: 'The marquee and episodic charts: every new version is committed to the branch, with no pull request',
+            description: 'The marquee, episodic and Programme charts: every new version is committed to the branch, with no pull request',
             matchDatasources: [
                 'docker',
             ],
