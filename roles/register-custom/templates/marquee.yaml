@@ -103,13 +103,15 @@ spec:
         # The charts' default limit (256Mi) is too small for this library:
         # the operator and the api keep every title in memory and were
         # killed for running out of it.
+        # The operator also keeps every finished artwork job of a whole-library
+        # run, which takes it past 1Gi.
         operator:
           resources:
             requests:
               cpu: 10m
               memory: 256Mi
             limits:
-              memory: 1Gi
+              memory: 2Gi
         api:
           resources:
             requests:
