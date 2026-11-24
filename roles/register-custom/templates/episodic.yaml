@@ -100,6 +100,14 @@ spec:
         image:
           pullSecrets:
             - ghcr-pull
+        # Programme's web app and playback API read /api/v1 from their own
+        # namespace.
+        networkPolicy:
+          api:
+            ingressFrom:
+              - namespaceSelector:
+                  matchLabels:
+                    kubernetes.io/metadata.name: programme
         # The charts' default limit (256Mi) is too small for this library:
         # the operator and the api keep every title in memory and were
         # killed for running out of it.
