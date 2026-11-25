@@ -81,7 +81,7 @@ spec:
     repoURL: ghcr.io/ullbergm/charts
     chart: episodic
     # renovate: datasource=docker depName=ghcr.io/ullbergm/charts/episodic
-    targetRevision: 0.14.18
+    targetRevision: 0.15.0
     helm:
       releaseName: episodic
       valuesObject:
