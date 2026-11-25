@@ -89,6 +89,12 @@ spec:
           enabled: true
         storage:
           mediaClaim: marquee-data-volume
+        # Scrub thumbnails: what a file analysis makes for a movie goes in
+        # a folder of the app's own on the media claim.
+        sidecars:
+          overlay:
+            claimName: marquee-data-volume
+            subPath: marquee/overlay
         apiKey:
           existingSecret: marquee-key
         # Both apps' claims are the same NFS export, so each keeps its
@@ -143,6 +149,14 @@ spec:
         marqueeConfig:
           annotations:
             argocd.argoproj.io/sync-options: ServerSideApply=true
+          # A new movie gets its thumbnails when it arrives; the rest of
+          # the library 50 files a night (01:00 UTC for five hours).
+          spec:
+            analysis:
+              enabled: true
+              sprites:
+                enabled: true
+                backfillFiles: 50
         trashGuide:
           create: false
   # Argo CD 2.12 does not know the Deployment status field

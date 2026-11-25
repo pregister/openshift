@@ -161,6 +161,11 @@ spec:
             mediaManagement:
               analysis:
                 enabled: true
+                # Scrub thumbnails: a new file at once, the rest of the
+                # library 50 files a night.
+                sprites:
+                  enabled: true
+                  backfillFiles: 50
         trashGuide:
           create: false
   # Argo CD 2.12 does not know the Deployment status field
