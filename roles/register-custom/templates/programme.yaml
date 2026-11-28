@@ -171,7 +171,7 @@ spec:
     - repoURL: ghcr.io/ullbergm/charts
       chart: foyer-shim
       # renovate: datasource=docker depName=ghcr.io/ullbergm/charts/foyer-shim
-      targetRevision: 0.3.1
+      targetRevision: 0.4.2
       helm:
         releaseName: programme
         valuesObject:
